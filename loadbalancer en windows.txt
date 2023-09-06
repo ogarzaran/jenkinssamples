@@ -1,0 +1,40 @@
+powershell con permisos de administrador (y reiniciamos PC):
+
+	Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+
+cmd con permisos de administrador:
+	
+	minikube start --driver=hyperv -p entorno-hyperv
+
+	minikube profile entorno-hyperv
+
+C:\Windows\system32>minikube profile list
+|----------------|-----------|---------|----------------|------|---------|---------|-------|--------|
+|    Profile     | VM Driver | Runtime |       IP       | Port | Version | Status  | Nodes | Active |
+|----------------|-----------|---------|----------------|------|---------|---------|-------|--------|
+| entorno-hyperv | hyperv    | docker  | 172.23.225.194 | 8443 | v1.26.3 | Running |     1 | *      |
+| minikube       | docker    | docker  | 192.168.49.2   | 8443 | v1.26.3 | Stopped |     1 |        |
+|----------------|-----------|---------|----------------|------|---------|---------|-------|--------|
+
+
+	kubectl run apache --image=httpc 
+ 
+
+	kubectl expose pod apache --port=80 --name=apache-svc --type=LoadBalancer
+	
+	C:\Windows\system32>kubectl get pods
+NAME     READY   STATUS    RESTARTS   AGE
+apache   1/1     Running   0          14m
+
+C:\Windows\system32>kubectl get svc
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+apache-svc   LoadBalancer   10.99.147.116   <pending>     80:32629/TCP   13m
+kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP        19m
+	
+	C:\Windows\system32>minikube ip entorno-hyperv
+        172.23.225.194
+	   
+	   En un navegador:
+	   
+	   http:// 172.23.225.194:32629  >>>> It works!
+	   
