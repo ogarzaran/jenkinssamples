@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: test
+    version: v1
+    app: test
+spec:
+  containers:
+   - name: nginx   
+     image: ogarzara/nginx:01
